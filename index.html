@@ -1,1 +1,56 @@
-hello, world
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jenny Li</title>
+<style>
+:root{--bg:#dfe4ea;--bar:#c9d0d9;--page:#fbfcfd;--ink:#1d2430;--mute:#5a6575;--accent:#2a5bd7;color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root{--bg:#14181f;--bar:#1d232d;--page:#232a36;--ink:#e8ecf2;--mute:#9aa5b5;--accent:#7ea2ff}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,sans-serif;padding:clamp(8px,4vw,48px)}
+.win{max-width:760px;margin:auto;background:var(--page);border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.15)}
+[role=tablist]{display:flex;gap:2px;background:var(--bar);padding:8px 8px 0;overflow-x:auto}
+[role=tab]{font:inherit;font-size:14px;border:0;background:transparent;color:var(--mute);padding:8px 16px;border-radius:8px 8px 0 0;cursor:pointer;white-space:nowrap}
+[role=tab][aria-selected=true]{background:var(--page);color:var(--ink);font-weight:600}
+[role=tab]:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+section{padding:clamp(24px,5vw,48px)}
+section[hidden]{display:none}
+h1{font-size:clamp(2.2rem,7vw,3.4rem);line-height:1.05;margin:0 0 .4em;letter-spacing:-.02em}
+h2{font-size:1.1rem;margin:1.6em 0 .3em}
+p,ul{max-width:60ch;margin:.5em 0}
+ul{padding-left:1.2em}
+a{color:var(--accent)}
+.mute{color:var(--mute)}
+</style></head><body>
+<div class="win">
+<div role="tablist" aria-label="Sections">
+ <button role="tab" aria-selected="true" aria-controls="p1" id="t1">about-jenny</button>
+ <button role="tab" aria-selected="false" aria-controls="p2" id="t2">outside-of-work</button>
+ <button role="tab" aria-selected="false" aria-controls="p3" id="t3">side-projects</button>
+ <button role="tab" aria-selected="false" aria-controls="p4" id="t4">elsewhere</button>
+</div>
+<section id="p1" role="tabpanel" aria-labelledby="t1">
+ <h1>Hi, I'm Jenny Li.</h1>
+ <p class="mute">Software engineer</p>
+ <p>I'm working on making sports more fun for everyone at <a href="https://www.teamsnap.com/">TeamSnap</a> 🏀.</p>
+ <p>Before this I was at <a href="https://www.mojo.sport/">MOJO Sports</a> ⚽, <a href="https://github.com/">GitHub</a> 💻, <a href="https://www.lyft.com/">Lyft</a> 🚗, and a few other places along the way.</p>
+ <p class="mute">I have about forty tabs open right now. This site has four.</p>
+</section>
+<section id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+ <h1>Outside of work</h1>
+ <p>Hobbyist cook, DIYer, weightlifter, and more.</p>
+</section>
+<section id="p3" role="tabpanel" aria-labelledby="t3" hidden>
+ <h1>Side projects</h1>
+ <p>Have something interesting in mind? <a href="https://www.linkedin.com/in/imjennyli/">Reach out.</a></p>
+</section>
+<section id="p4" role="tabpanel" aria-labelledby="t4" hidden>
+ <h1>Elsewhere</h1>
+ <ul><li><a href="https://github.com/imjennyli">GitHub</a></li><li><a href="https://www.linkedin.com/in/imjennyli/">LinkedIn</a></li></ul>
+</section>
+</div>
+<script>
+const tabs=[...document.querySelectorAll('[role=tab]')];
+function show(t){tabs.forEach(x=>{const on=x===t;x.setAttribute('aria-selected',on);document.getElementById(x.getAttribute('aria-controls')).hidden=!on});history.replaceState(null,'','#'+t.id)}
+tabs.forEach(t=>t.onclick=()=>show(t));
+const h=document.getElementById(location.hash.slice(1));if(h&&h.role==='tab')show(h);
+</script></body></html>
